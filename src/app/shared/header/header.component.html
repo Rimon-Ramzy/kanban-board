@@ -1,0 +1,30 @@
+<div id="header">
+  <div class="container">
+    <div class="row">
+      <div class="header-wrapper">
+        <div class="logo">
+          <h1><span>Kanban</span> <span> Board</span></h1>
+        </div>
+        <div class="features">
+          <div class="dropdown-center settings">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fa-solid fa-gear"></i>
+            </button>
+            <ul class="dropdown-menu p-0">
+              <li (click)="openProfile()"><a class="dropdown-item">Profile</a></li>
+              <li (click)="onLogout()"><a class="dropdown-item">Logout</a></li>
+            </ul>
+          </div>
+          <div class="profile-picture">
+            <p>{{userData?.displayName}}</p>
+            <img [src]="userData?.profilePicture" [alt]="userData?.displayName" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-user-information *ngIf="userData && showProfile" [userData]="userData"></app-user-information>

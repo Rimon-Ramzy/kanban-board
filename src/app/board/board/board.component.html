@@ -1,0 +1,137 @@
+<div id="board">
+  <div class="container">
+    <div class="columns">
+      <div class="row ms-0 me-0">
+        <div class="col-md-4 p-0">
+          <div class="column border-column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'toDo')">
+            <div class="column-title">
+              <h3>To Do</h3>
+              <button class="btn" type="button" (click)="onAddTask('toDo')">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <div class="column-content toDoColumn">
+              <div *ngFor="let task of tasks; let i = index">
+                <div *ngIf="task.status == 'toDo'">
+                  <div class="card  mb-3" style="max-width: 18rem;" [style.background-color]="task.color "
+                    draggable="true" (dragstart)="onDragStart(task)">
+                    <div class="card-header">
+                      <h3 class="card-title">{{ task.title }}</h3>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-content" [innerHTML]="getSanitizedHtml(task.description)"></p>
+                    </div>
+                    <div class="card-footer">
+                      <div class="date">
+                        <p>Due Date: {{ task.dueDate }}</p>
+                      </div>
+                      <div class="controls">
+                        <div class="task-details">
+                          <i class="fa-regular fa-share-from-square"></i>
+                        </div>
+                        <div class="task-edit" *ngIf="task.userId === currentUserId">
+                          <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deleteBtn" *ngIf="task.userId === currentUserId">
+                      <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)">
+                        Delete Task
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 p-0">
+          <div class="column border-column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'inProgress')">
+            <div class="column-title">
+              <h3>In Progress</h3>
+              <button class="btn" type="button" (click)="onAddTask('inProgress')">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <div class="column-content toDoColumn">
+              <div *ngFor="let task of tasks;let i = index">
+                <div *ngIf="task.status == 'inProgress'">
+                  <div class="card  mb-3" style="max-width: 18rem;" [style.background-color]="task.color"
+                    draggable="true" (dragstart)="onDragStart(task)">
+                    <div class="card-header">
+                      <h3 class="card-title">{{ task.title }}</h3>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-content" [innerHTML]="getSanitizedHtml(task.description)"></p>
+                    </div>
+                    <div class="card-footer">
+                      <div class="date">
+                        <p>Due Date: {{ task.dueDate }}</p>
+                      </div>
+                      <div class="controls">
+                        <div class="task-details">
+                          <i class="fa-regular fa-share-from-square"></i>
+                        </div>
+                        <div class="task-edit" *ngIf="task.userId === currentUserId">
+                          <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deleteBtn" *ngIf="task.userId === currentUserId">
+                      <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)">
+                        Delete Task
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 p-0">
+          <div class="column border-column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'done')">
+            <div class="column-title">
+              <h3>Done</h3>
+              <button class="btn" type="button" (click)="onAddTask('done')">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <div class="column-content toDoColumn">
+              <div *ngFor="let task of tasks;let i = index">
+                <div *ngIf="task.status == 'done'">
+                  <div class="card  mb-3" style="max-width: 18rem;" [style.background-color]="task.color"
+                    draggable="true" (dragstart)="onDragStart(task)">
+                    <div class="card-header">
+                      <h3 class="card-title">{{ task.title }}</h3>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-content" [innerHTML]="getSanitizedHtml(task.description)"></p>
+                    </div>
+                    <div class="card-footer">
+                      <div class="date">
+                        <p>Due Date: {{ task.dueDate }}</p>
+                      </div>
+                      <div class="controls">
+                        <div class="task-details">
+                          <i class="fa-regular fa-share-from-square"></i>
+                        </div>
+                        <div class="task-edit" *ngIf="task.userId === currentUserId">
+                          <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deleteBtn" *ngIf="task.userId === currentUserId">
+                      <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)">
+                        Delete Task
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

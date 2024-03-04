@@ -1,0 +1,7 @@
+<app-notification #notification [newTask]="newTask"
+  *ngIf="currentUrl !== '/auth' && showNotification === true || (userData|async) !== null"></app-notification>
+<app-header *ngIf="currentUrl !== '/auth' && (userData|async) !== null"></app-header>
+<router-outlet *ngIf="(userData|async) !== null || currentUrl == '/auth'"></router-outlet>
+<div *ngIf="currentUrl !== '/auth'">
+  <app-loading *ngIf="(userData|async) == null"></app-loading>
+</div>

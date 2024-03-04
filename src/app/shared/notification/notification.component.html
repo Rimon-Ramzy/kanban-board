@@ -1,0 +1,7 @@
+<div id="notification" #notification *ngIf="newTask != undefined">
+  <div class="content">
+    <div class="message">
+      <p>{{newTask.createdBy}} add {{newTask.title}} and it is end at {{newTask.dueDate}}</p>
+    </div>
+  </div>
+</div>

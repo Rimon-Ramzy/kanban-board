@@ -1,0 +1,96 @@
+<div id="auth">
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="auth-card" #authCard>
+        <div class="auth-wrapper">
+          <div class="title">
+            <div class="signup" #signup>
+              <h3>Have an account?</h3>
+              <button class="auth-btn" (click)="goLogin()">Login</button>
+            </div>
+            <div class="login" #login>
+              <h3>Don't have an account?</h3>
+              <button class="auth-btn" (click)="goSignup()">Sign Up</button>
+            </div>
+          </div>
+
+
+          <div class="form-wrapper login-mode" #formWrapper>
+            <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()" #loginFormWrapper>
+              <div class="inputs-wrapper">
+                <div class="input">
+                  <input type="email" placeholder="Email" class="form-control" formControlName="email">
+                  <div class="error" *ngIf="loginControlName['email'].errors && loginControlName['email'].touched">
+                    <p *ngIf="loginControlName['email'].errors?.['required']">Email is Required</p>
+                    <p *ngIf="loginControlName['email'].errors?.['email']">Email is not valid</p>
+                  </div>
+                </div>
+                <div class="input">
+                  <input type="password" placeholder="Password" class="form-control" formControlName="password">
+                  <div class="error"
+                    *ngIf="loginControlName['password'].errors && loginControlName['password'].touched">
+                    <p *ngIf="loginControlName['password'].errors?.['required']">password is Required</p>
+                  </div>
+                </div>
+                <div class="btn-wrapper">
+                  <button class="btn" type="submit" [disabled]="!loginForm.valid">Login</button>
+                </div>
+                <div class="text-danger mt-1" role="alert" *ngIf="loginError">
+                  <p>{{ loginError }}</p>
+                </div>
+              </div>
+            </form>
+
+            <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSignup()" #signupFormWrapper>
+              <div class="inputs-wrapper">
+                <div class="signup-input">
+                  <input type="email" placeholder="Email" class="form-control" formControlName="email">
+                  <div class="error" *ngIf="signupControlName['email'].errors && signupControlName['email'].touched">
+                    <p *ngIf="signupControlName['email'].errors?.['required']">Email is Required</p>
+                    <p *ngIf="signupControlName['email'].errors?.['email']">Email is not valid</p>
+                  </div>
+                </div>
+                <div class="signup-input">
+                  <input type="text" placeholder="Display Name" class="form-control" formControlName="displayName">
+                  <div class="error"
+                    *ngIf="signupControlName['displayName'].errors && signupControlName['displayName'].touched">
+                    <p *ngIf="signupControlName['displayName'].errors?.['required']">Display Name is Required</p>
+                  </div>
+                </div>
+
+                <div class="signup-input" #itemImageInput>
+                  <div class="input-group">
+                    <input type="file" class="form-control" accept="image/jpg" id="inputGroupFile02"
+                      (change)="onFileChange($event)" (click)="clickOnChooseFile = true">
+                    <div class="display-picture" *ngIf="profilePictureBase64">
+                      <img id="itemImg" [src]="profilePictureBase64" alt="" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="clickOnChooseFile && !profilePictureBase64" class="error mb-2">
+                  <p class="text-danger">Item image is required</p>
+                </div>
+                <div class="signup-input">
+                  <input type="password" placeholder="Password" class="form-control" formControlName="password">
+                  <div class="error"
+                    *ngIf="signupControlName['password'].errors && signupControlName['password'].touched">
+                    <p *ngIf="signupControlName['password'].errors?.['required']">Password is Required</p>
+                    <p *ngIf="signupControlName['password'].errors?.['pattern']">
+                      please Enter 8 digits-at least 1 uppercase and 1 lowercase and 1 number
+                    </p>
+                  </div>
+                </div>
+                <div class="btn-wrapper">
+                  <button class="btn" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
+                </div>
+                <div class="text-danger mt-1" role="alert" *ngIf="signupError">
+                  <p>{{ signupError }}</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

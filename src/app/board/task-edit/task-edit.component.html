@@ -1,0 +1,66 @@
+<div id="task-edit">
+  <div class="container">
+    <div class="row">
+      <h3>
+        Add Task
+        <span></span>
+      </h3>
+      <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)">
+        <div class="col-12">
+          <div class="input">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="floatingInput" placeholder="Title" [(ngModel)]="title"
+                name="title" required>
+              <label for="floatingInput">Title</label>
+              <div class="error"
+                *ngIf="taskForm.controls['title']?.errors !== null && taskForm.controls['title'].touched">
+                <p>Title is Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="input">
+            <div class="form-floating mb-3">
+              <quill-editor placeholder="Enter Text" class="w-100" [modules]="quillConfig" [(ngModel)]="description"
+                name="description"></quill-editor>
+              <div class="error" *ngIf="description === null">
+                <p>Title is Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="row colorAndDate">
+            <div class="col-6">
+              <div class="input input-radio">
+                <div class="form-check" *ngFor="let currentColor of colorsArr; let i = index;">
+                  <input type="radio" id="{{currentColor}}" value="{{currentColor}}" [(ngModel)]="color" name="color"
+                    required />
+                  <label for="{{currentColor}}" [style.background-color]="currentColor"></label>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="input date-picker">
+                <input type="date" name="dueDate" placeholder="Select a date" [(ngModel)]="currentDate" [min]="minDate"
+                  required />
+                <div class="selected-date" *ngIf="currentDate">
+                  Due Date: {{ currentDate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn button" [disabled]="description === null || !taskForm.valid || loadSpinner">
+            {{editMode? 'Edit ' : 'Add'}} Task
+            <i class="fas fa-spinner fa-spin ms-4" *ngIf="loadSpinner"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+    <button type="button" routerLink="/board" class="back btn">Back To Board<i
+        class="fa-solid fa-rotate-left"></i></button>
+  </div>
+</div>

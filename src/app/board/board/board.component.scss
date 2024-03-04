@@ -1,0 +1,97 @@
+#board {
+  margin-block: 20px;
+
+  .columns {
+    border-right: 1px solid #d3cfd0;
+    border-left: 1px solid #d3cfd0;
+    border-bottom: 1px solid #d3cfd0;
+  }
+
+  .column {
+    border-top: 1px solid #d3cfd0;
+    height: 100%;
+
+    &.border-column {
+      border-right: 1px solid #d3cfd0;
+    }
+
+    .column-title {
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #d3cfd0;
+      padding: 5px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h3 {
+        font-size: 22px;
+        color: #9ba3e1;
+        margin: 0;
+      }
+
+      i {
+        color: #fe73b4;
+        font-weight: 900;
+        font-size: 22px;
+      }
+    }
+
+    .card {
+      margin: 10px auto;
+
+      .card-header {
+        h3 {
+          text-transform: capitalize;
+          margin: 0;
+          text-align: center;
+        }
+      }
+
+      .card-content {
+        p {
+          margin-bottom: 0 !important;
+        }
+      }
+
+      .card-body {
+        p {
+          margin: 0;
+        }
+      }
+
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .controls {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          i {
+            cursor: pointer;
+          }
+
+          .task-edit {
+            i {
+              margin-inline-start: 10px;
+            }
+          }
+        }
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+
+      .deleteBtn {
+        button {
+          width: 100%;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+        }
+      }
+    }
+  }
+}

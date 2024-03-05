@@ -113,6 +113,6 @@ export class UserInformationComponent implements OnInit {
   }
 
   closeModelBtn() {
-    this.modal.nativeElement.classList.replace('d-block', 'd-none');
+    this.sharedService.openProfileChanged.next(false);
   }
 }

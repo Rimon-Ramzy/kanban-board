@@ -111,4 +111,8 @@ export class UserInformationComponent implements OnInit {
       }, 100)
     }
   }
+
+  closeModelBtn() {
+    this.modal.nativeElement.classList.replace('d-block', 'd-none');
+  }
 }

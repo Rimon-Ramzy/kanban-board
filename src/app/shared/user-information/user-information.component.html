@@ -3,7 +3,8 @@
     <div class="modal-content" #modelContent>
       <div class="modal-header">
         <h2 class="modal-title fs-5" id="exampleModalLabel">User Information</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeModelBtn()"></button>
       </div>
       <div class="modal-body">
         <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
@@ -40,7 +41,8 @@
             </div>
           </div>
           <div class="modal-footer mt-3">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              (click)="closeModelBtn()">Close</button>
             <button class="btn btn-primary" type="submit" [disabled]="displayName == '' || displayName == undefined"
               #submitBtn [disabled]="loadSpinner">
               Submit Changes <i class="fas fa-spinner fa-spin" *ngIf="loadSpinner"></i>

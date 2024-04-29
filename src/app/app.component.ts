@@ -3,7 +3,6 @@ import { AuthService } from './auth/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { SharedService } from './shared/shared.service';
 import { Task } from './board/task.model';
 
 @Component({
@@ -19,7 +18,7 @@ export class AppComponent implements OnInit {
   showNotification: boolean = false;
   @ViewChild('notification') notification: any;
 
-  constructor(private authService: AuthService, private _router: Router, private sharedService: SharedService) { }
+  constructor(private authService: AuthService, private _router: Router) { }
   ngOnInit(): void {
     this.userData = this.authService.userData
     this.authService.autoLogin();
@@ -29,15 +28,6 @@ export class AppComponent implements OnInit {
     ).subscribe(() => {
       this.currentUrl = this._router.url;
     });
-
-    // this.sharedService.newNotifivation.subscribe(
-    //   res => {
-    //     this.newTask = res;
-    //     this.showNotification = true;
-    //     setTimeout(() => {
-    //       this.showNotification = false;
-    //     }, 5000);
-    //   }
-    // )
   }
+
 }

@@ -1,1 +1,33 @@
-<p>task-details works!</p>
+<div id="task-details">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h4>{{ currentTask?.title }}</h4>
+        <p class="desc"><span class="head">Description:</span><span
+            [innerHTML]="getSanitizedHtml(currentTask?.description)"></span></p>
+        <p class="dueDate"><span class="head">Due Date: </span>{{ currentTask?.dueDate }}</p>
+        <p class="created"><span class="head">Created By: </span>{{ currentTask?.createdBy }}</p>
+        <p class="hsalary"><span class="head">Salary: </span>{{ currentTask?.hourSalary }}</p>
+        <p class="status mb-0"><span class="head">Status: </span>{{ currentTask?.status }}</p>
+      </div>
+    </div>
+    <div class="hr"></div>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let details of workDet">
+        <div class="card mb-3" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ details?.userName }}
+              <span></span>
+            </h5>
+            <div class="card-text">
+              <p>{{ details?.taskTitle }} Task</p>
+              <p>{{ details?.timer }} Time Work</p>
+              <p class="salary">Salary: {{ details?.salary }} $</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

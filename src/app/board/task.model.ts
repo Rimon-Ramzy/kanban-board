@@ -7,6 +7,8 @@ export class Task {
     public status: string,
     public createdBy: string,
     public userId: string,
+    public hourSalary: string,
     public id?: string,
+    public index?: number
   ) { }
 }

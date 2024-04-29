@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Task } from './task.model';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Details } from './details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,38 @@ export class BoardService {
 
   deleteCetienTask(index: string) {
     return this._http.delete('https://kanban-board-1448e-default-rtdb.firebaseio.com/tasks/' + index + '.json');
+  }
+
+  storeWorkInTask(workDet: Details): Observable<Details> {
+    return this._http.post<{ name: string }>('https://kanban-board-1448e-default-rtdb.firebaseio.com/workDet.json', workDet).pipe(
+      map((response: any) => {
+        const id = response.name;
+        return { ...workDet, id }
+      })
+    )
+  }
+
+  fetchWorkInTask() {
+    return this._http.get<Details>('https://kanban-board-1448e-default-rtdb.firebaseio.com/workDet.json')
+  }
+
+  addNotification(notification: any) {
+    return this._http.post('https://kanban-board-1448e-default-rtdb.firebaseio.com/notification.json', notification);
+  }
+  fetchNotification() {
+    return this._http.get('https://kanban-board-1448e-default-rtdb.firebaseio.com/notification.json').pipe(
+      map(
+        (res: any) => {
+          let arrayOfObjects = []
+          for (let key in res) {
+            arrayOfObjects.push({ ...res[key], id: key });
+          }
+          return arrayOfObjects
+        }
+      )
+    );
+  }
+  deleteNotification(id: string) {
+    return this._http.delete('https://kanban-board-1448e-default-rtdb.firebaseio.com/notification/' + id);
   }
 }

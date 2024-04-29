@@ -17,7 +17,7 @@ import { NotificationComponent } from './notification/notification.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     HeaderComponent,

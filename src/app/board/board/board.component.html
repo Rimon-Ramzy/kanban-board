@@ -14,7 +14,7 @@
               <div *ngFor="let task of tasks; let i = index">
                 <div *ngIf="task.status == 'toDo'">
                   <div class="card  mb-3" style="max-width: 18rem;" [style.background-color]="task.color "
-                    draggable="true" (dragstart)="onDragStart(task)">
+                    draggable="true" (dragstart)="onDragStart(task)" [id]="task.id">
                     <div class="card-header">
                       <h3 class="card-title">{{ task.title }}</h3>
                     </div>
@@ -27,14 +27,16 @@
                       </div>
                       <div class="controls">
                         <div class="task-details">
-                          <i class="fa-regular fa-share-from-square"></i>
+                          <i class="fa-regular fa-share-from-square" [routerLink]="['details',task.id]"></i>
                         </div>
-                        <div class="task-edit" *ngIf="task.userId === currentUserId">
+                        <!-- <div class="task-edit" *ngIf="task.userId === currentUserId"> -->
+                        <div class="task-edit" *ngIf="isAdmin">
                           <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i>
                         </div>
                       </div>
                     </div>
-                    <div class="deleteBtn" *ngIf="task.userId === currentUserId">
+                    <!-- <div class="deleteBtn" *ngIf="task.userId === currentUserId"> -->
+                    <div class="deleteBtn" *ngIf="isAdmin">
                       <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)">
                         Delete Task
                       </button>
@@ -69,18 +71,31 @@
                         <p>Due Date: {{ task.dueDate }}</p>
                       </div>
                       <div class="controls">
-                        <div class="task-details">
+                        <div class="task-details" [routerLink]="['details',task.id]">
                           <i class="fa-regular fa-share-from-square"></i>
                         </div>
-                        <div class="task-edit" *ngIf="task.userId === currentUserId">
+                        <!-- <div class="task-edit" *ngIf="task.userId === currentUserId"> -->
+                        <div class="task-edit" *ngIf="isAdmin">
                           <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i>
                         </div>
                       </div>
                     </div>
-                    <div class="deleteBtn" *ngIf="task.userId === currentUserId">
+                    <!-- <div class="deleteBtn" *ngIf="task.userId === currentUserId"> -->
+                    <div class="deleteBtn" *ngIf="isAdmin">
                       <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)">
                         Delete Task
                       </button>
+                    </div>
+                    <div class="ctrlHours d-flex justify-content-between align-items-center my-1 mx-2"
+                      *ngIf="activeTaskIndex === i || startTime === 0">
+                      <button class="btn border-dark-subtle b-2 w-100" type="button"
+                        (click)="isStoring = true; onStartWork(i)"
+                        *ngIf="activeTaskIndex !== i && startTime === 0">Start
+                        Work</button>
+                      <div *ngIf="activeTaskIndex === i">{{ timerDisplay }}</div>
+                      <button class="btn border-dark-subtle b-2" type="button" (click)="onEndWork(task)"
+                        *ngIf="activeTaskIndex === i">End
+                        Work</button>
                     </div>
                   </div>
                 </div>
@@ -112,15 +127,17 @@
                         <p>Due Date: {{ task.dueDate }}</p>
                       </div>
                       <div class="controls">
-                        <div class="task-details">
+                        <div class="task-details" [routerLink]="['details',task.id]">
                           <i class="fa-regular fa-share-from-square"></i>
                         </div>
-                        <div class="task-edit" *ngIf="task.userId === currentUserId">
+                        <div class="task-edit" *ngIf="isAdmin">
+                          <!-- <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i> -->
                           <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i>
                         </div>
                       </div>
                     </div>
-                    <div class="deleteBtn" *ngIf="task.userId === currentUserId">
+                    <div class="deleteBtn" *ngIf="isAdmin">
+                      <!-- <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)"> -->
                       <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)">
                         Delete Task
                       </button>

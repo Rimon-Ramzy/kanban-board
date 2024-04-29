@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { UserData } from '../../auth/user-data.model';
 import { BoardService } from '../board.service';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-task-edit',
@@ -60,7 +61,7 @@ export class TaskEditComponent implements OnInit {
   newTodo: string = '';
   isConnected: boolean = false;
 
-  constructor(private _route: ActivatedRoute, private authService: AuthService, private boardService: BoardService, private _router: Router) {
+  constructor(private _route: ActivatedRoute, private authService: AuthService, private boardService: BoardService, private _router: Router, private socket: Socket) {
     this.currentDate = this.currentDateForamt(new Date());
     const currentDate = new Date();
     this.minDate = currentDate.toISOString().split('T')[0];
@@ -136,8 +137,13 @@ export class TaskEditComponent implements OnInit {
     } else {
       this.boardService.addTask(taskInfo).subscribe(
         res => {
+          console.log(res);
+
+          const notification = { address: 'Added New Task', title: taskInfo.title, createdBy: taskInfo.createdBy, image: this.currentUser.profilePicture, seen: false, taskId: res.id, time: new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).getTime(), new: true }
+          this.socket.emit('send-event', notification);
+          this.boardService.addNotification(notification).subscribe();
           this.loadSpinner = false;
-          this._router.navigate(['/board'])
+          this._router.navigate(['/board']);
         },
         (error) => {
           this.loadSpinner = false;

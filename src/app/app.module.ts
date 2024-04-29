@@ -8,6 +8,12 @@ import { SharedModule } from './shared/shared.module';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+
+const socketIoConfig: SocketIoConfig = {
+  url: 'http://localhost:3000',
+  options: {},
+}
 
 @NgModule({
   declarations: [
@@ -18,7 +24,8 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     SharedModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SocketIoModule.forRoot(socketIoConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

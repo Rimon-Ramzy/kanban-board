@@ -29,13 +29,11 @@
                         <div class="task-details">
                           <i class="fa-regular fa-share-from-square" [routerLink]="['details',task.id]"></i>
                         </div>
-                        <!-- <div class="task-edit" *ngIf="task.userId === currentUserId"> -->
-                        <div class="task-edit" *ngIf="isAdmin">
+                        <div class="task-edit" *ngIf="isAdmin || task.userId === currentUserId">
                           <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i>
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="deleteBtn" *ngIf="task.userId === currentUserId"> -->
                     <div class="deleteBtn" *ngIf="isAdmin">
                       <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)">
                         Delete Task
@@ -74,28 +72,28 @@
                         <div class="task-details" [routerLink]="['details',task.id]">
                           <i class="fa-regular fa-share-from-square"></i>
                         </div>
-                        <!-- <div class="task-edit" *ngIf="task.userId === currentUserId"> -->
-                        <div class="task-edit" *ngIf="isAdmin">
+                        <div class="task-edit" *ngIf="isAdmin || task.userId === currentUserId">
                           <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i>
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="deleteBtn" *ngIf="task.userId === currentUserId"> -->
                     <div class="deleteBtn" *ngIf="isAdmin">
                       <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)">
                         Delete Task
                       </button>
                     </div>
-                    <div class="ctrlHours d-flex justify-content-between align-items-center my-1 mx-2"
-                      *ngIf="activeTaskIndex === i || startTime === 0">
-                      <button class="btn border-dark-subtle b-2 w-100" type="button"
-                        (click)="isStoring = true; onStartWork(i)"
-                        *ngIf="activeTaskIndex !== i && startTime === 0">Start
-                        Work</button>
-                      <div *ngIf="activeTaskIndex === i">{{ timerDisplay }}</div>
-                      <button class="btn border-dark-subtle b-2" type="button" (click)="onEndWork(task)"
-                        *ngIf="activeTaskIndex === i">End
-                        Work</button>
+                    <div *ngIf="!isAdmin">
+                      <div class="ctrlHours d-flex justify-content-between align-items-center my-1 mx-2"
+                        *ngIf="activeTaskIndex === i || startTime === 0">
+                        <button class="btn border-dark-subtle b-2 w-100" type="button"
+                          (click)="isStoring = true;onStartWork(i);"
+                          *ngIf="activeTaskIndex !== i && startTime === 0">Start
+                          Work</button>
+                        <div *ngIf="activeTaskIndex === i">{{ timerDisplay }}</div>
+                        <button class="btn border-dark-subtle b-2" type="button" (click)="onEndWork(task)"
+                          *ngIf="activeTaskIndex === i">End
+                          Work</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -130,14 +128,12 @@
                         <div class="task-details" [routerLink]="['details',task.id]">
                           <i class="fa-regular fa-share-from-square"></i>
                         </div>
-                        <div class="task-edit" *ngIf="isAdmin">
-                          <!-- <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i> -->
+                        <div class="task-edit" *ngIf="isAdmin || task.userId === currentUserId">
                           <i class="fa-regular fa-pen-to-square" (click)="onEditTask(task.id!, task.status)"></i>
                         </div>
                       </div>
                     </div>
                     <div class="deleteBtn" *ngIf="isAdmin">
-                      <!-- <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)"> -->
                       <button class="btn btn-danger" type="button" (click)="onDeleteTask(task.id!, i)">
                         Delete Task
                       </button>

@@ -28,6 +28,8 @@ export class BoardComponent implements OnInit {
   minutes: number = 0;
 
   activeTaskIndex: number | null = null;
+  index: number | null = null;
+  taskIdOnLocal: string | null = null;
 
   constructor(private _router: Router, private _route: ActivatedRoute, private boardService: BoardService, private _sanitizer: DomSanitizer, private authService: AuthService) { }
   ngOnInit(): void {
@@ -36,12 +38,10 @@ export class BoardComponent implements OnInit {
     this.getCurrentUserName();
     this.currentUserIsAdmin();
 
-
     if (localStorage.getItem('startTime') !== null) {
       this.isStoring = true;
-      const index = +(localStorage.getItem('activeTaskIndex')!)
-      console.log(index);
-      this.onStartWork(index);
+      this.index = +(localStorage.getItem('activeTaskIndex')!)
+      this.onStartWork(this.index);
     }
   }
 
@@ -83,6 +83,7 @@ export class BoardComponent implements OnInit {
     this._router.navigate(['edit', id], { relativeTo: this._route });
   }
   onDeleteTask(index: string, i: number) {
+    this.tasks.splice(i, 1);
     this.boardService.deleteCetienTask(index).subscribe();
   }
 
@@ -108,7 +109,7 @@ export class BoardComponent implements OnInit {
   onStartWork(index: any): void {
     this.activeTaskIndex = index;
     if (this.activeTaskIndex !== null) {
-      localStorage.setItem('activeTaskIndex', JSON.stringify(this.activeTaskIndex))
+      localStorage.setItem('activeTaskIndex', JSON.stringify(this.activeTaskIndex));
     }
     if (localStorage.getItem('startTime') === null) {
       this.startTime = Date.now();

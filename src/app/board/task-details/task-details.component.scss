@@ -59,4 +59,17 @@
     color: #9ba3e1;
     font-weight: 600;
   }
+
+  .back {
+    background-color: #fe73b4;
+    font-size: 20px;
+    margin-left: auto;
+    display: block;
+    margin-block: 50px;
+
+    i {
+      font-size: 20px;
+      margin-inline-start: 20px;
+    }
+  }
 }
